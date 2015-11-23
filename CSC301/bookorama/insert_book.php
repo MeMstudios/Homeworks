@@ -38,17 +38,22 @@ if (empty($errors)) {
 
   
 
-  $query = "insert into books values
-            ('".$isbn."', '".$author."', '".$title."', '".$price."')";
-  $result = @mysqli_query($dbc,$query);
-
-  if ($result) {
+  $query = 'INSERT INTO books (isbn, author, title, price) VALUES(?,?,?,?)';
+  $stmt = @mysqli_prepare($dbc,$query);
+  mysqli_stmt_bind_param($stmt, 'issi', $isbn, $author, $title, $price);
+  //assign values to variables
+  $isbn = (int) $_POST['isbn'];
+  $author = strip_tags($_POST['author']);
+  $title = strip_tags($_POST['title']);
+  $price = (int) $_POST['price'];
+  mysqli_stmt_execute($stmt);
+  if (mysqli_stmt_affected_rows($stmt) == 1) {
       echo  "<p>The book was inserted.</p>";
   } else {
   	  echo '<h1>System Error!</h1>';
-	  echo '<p>'.mysqli_error($dbc).'<br/><br/>Query:'.$query.'</p>';
+	  echo '<p>'.mysqli_stmt_error($stmt).'</p>';
   }
-
+  mysqli_stmt_close($stmt);
   mysqli_close($dbc);
 }
 else {

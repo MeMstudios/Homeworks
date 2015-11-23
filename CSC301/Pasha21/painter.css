@@ -1,0 +1,82 @@
+﻿body { background-color: #ffffff;
+       color: #000000;
+       font-family: Verdana, Arial, sans-serif; 
+}
+.logo { background-color:#ffffff;
+        color:#336633;
+      font-family: Georgia, "Times New Roman", serif;
+}
+.category {background-color:#ffffff;
+           color:#336633;
+           font-family: Georgia, "Times New Roman", serif;
+           font-size: 1.2em;
+          font-weight:bold; 
+}
+
+#footer { font-size: .60em;
+          font-style: italic;
+}
+
+img { border:0;
+      padding-right:10px;
+}
+
+h2 { margin: -10px 5px 5px 0px;
+	padding: 5px;
+	font-family: Verdana, sans-serif;
+	font-size: .90em;
+	float: left;
+	width: 200px;
+	background-color: #336600;
+	color: #ffffff;
+	text-transform: uppercase;
+}
+.desc { padding: 5px 0 20px 0;
+border-top: 1px solid #336600;
+} 
+#container { width: 620px; }
+
+#leftcolumn {float: left;
+             width: 150px;
+}
+#leftcolumn ul {list-style-type: none;
+                margin-left: 0;
+                padding-left: 0;
+}
+div#leftcolumn a { font-weight: bold;
+                   text-decoration: none;
+} 
+#leftcolumn a:link { color: #336633; }
+#leftcolumn a:visited { color: #FFCC00;  }
+#leftcolumn a:focus { color: #FFFFFF;
+                      background-color:#336633; }
+#leftcolumn a:hover { color: #CCCCCC;    }
+#leftcolumn a:active { color: #000000; }
+#rightcolumn { margin: 10px 0 0 150px; }
+
+.floatright { float: right;
+              padding: 5px;
+
+}
+.service {background-color: #336633;
+          color: #ffffff;
+          font-family: Verdana, sans-serif;
+          text-transform: uppercase;
+          font-weight: bold;
+          border-bottom: 1px #000000 solid; 
+          padding: 5px;
+          font-size: .90em;
+}
+.labelCol {float:left;
+           width: 100px; 
+           text-align: right;
+           padding-right: 10px;
+}
+.myRow { padding-bottom: 20px;
+}
+.mySubmit {margin: 10px 10px 10px 110px;
+}
+.error {
+	font-weight: bold;
+	color: #C00;
+}

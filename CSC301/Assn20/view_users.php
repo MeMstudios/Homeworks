@@ -1,11 +1,11 @@
 <?php # Script 10.5 - #5
 // This script retrieves all the records from the users table.
 // This new version allows the results to be sorted in different ways.
-
+session_start();
 $page_title = 'View the Current Users';
 include ('includes/header.html');
 echo '<h1>Registered Users</h1>';
-session_start();
+
 require ('mysqli_connect.php');
 if (!isset($_SESSION['user_id'])) {
 

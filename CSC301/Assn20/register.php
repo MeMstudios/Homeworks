@@ -27,9 +27,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 	// Check for an email address:
 	if (empty($_POST['email'])) {
+        
 		$errors[] = 'You forgot to enter your email address.';
 	} else {
+        
 		$e = mysqli_real_escape_string($dbc, trim($_POST['email']));
+        $epattern = '/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/';
+            if (!preg_match ($epattern, $e)) {
+                $errors[] = 'Invalid email address!';
+            }
 	}
 	
 	// Check for a password and match against the confirmed password:
@@ -38,6 +44,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$errors[] = 'Your password did not match the confirmed password.';
 		} else {
 			$p = mysqli_real_escape_string($dbc, trim($_POST['pass1']));
+            $len = strlen($p);
+            $uppercase = preg_match('@[A-Z]@', $p);
+            $lowercase = preg_match('@[a-z]@', $p);
+            $number    = preg_match('@[0-9]@', $p);
+            if($len < 8) {
+                $errors[] = 'Password must be at least 8 characters long.';
+            }
+            if (!$uppercase || !$lowercase || !$number) {  
+                $errors[] = 'Invalid Password!  Must contain at least one digit, one lower-case letter, and one upper-case letter';
+            }
 		}
 	} else {
 		$errors[] = 'You forgot to enter your password.';
@@ -54,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 			// Print a message:
 			echo '<h1>Thank you!</h1>
-		<p>You are now registered. In Chapter 12 you will actually be able to log in!</p><p><br /></p>';	
+		<p>You are now registered!</p><p><br /></p>';	
 		
 		} else { // If it did not run OK.
 			
