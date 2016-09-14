@@ -4,29 +4,26 @@
 
 #include "Student.h"
 namespace std {
-    class Student {
-    public:
-        string name;
-        vector<int> marks;
 
-        Student(int i, string n, vector<int> m) {
+
+        Student::Student(int i, string n, vector<int> m) {
             id = i;
-            name = n;
+            *name = n;
             marks = m;
         }
         //destructor
-        ~Student() {
+        Student::~Student() {
             delete name;
-            delete marks;
+
         }
         //copy constructor
-        Student (const Student & rhs) {
-            id = rhs.getId();
+        Student::Student (const Student & rhs) {
+
             name = rhs.name;
             marks = rhs.marks;
         }
         //operator= override
-        const Student & operator=(const Student & rhs) {
+        const Student& Student::operator=(const Student & rhs) {
             if (id != rhs.getId()) {
                 id = rhs.getId();
                 name = rhs.name;
@@ -35,31 +32,46 @@ namespace std {
             return *this;
         }
 
-        int calculateGrade() {
-            int grade=0;
+        int Student::calculateGrade() {
+            int total=0;
+            int grade;
             for (int i = 0; i < marks.size(); i++) {
-                grade += marks.at(i);
+                total += marks.at(i);
             }
+            grade = total/marks.size();
             return grade;
         }
-        string calculateLetterGrade(const int grade);   //would like to just pass in the result of calculateGrade to get the letter grade
-        void setName(string newName)  {//setters & getters: id should not be able to be reset.
-            name = newName;
+        string Student::calculateLetterGrade(const int grade) {
+            if (grade < 60) {return "F";}
+            else if (grade <= 67) {return "D";}
+            else if (grade <= 70) {return "D+";}
+            else if (grade <= 73) {return "C-";}
+            else if (grade <= 77) {return "C";}
+            else if (grade <= 80) {return "C+";}
+            else if (grade <= 83) {return "B-";}
+            else if (grade <= 87) {return "B";}
+            else if (grade <= 90) {return "B+";}
+            else if (grade <= 93) {return "A-";}
+            else if (grade <= 97) {return "A";}
+            else return "A+";
         }
-        void setMarks(vector<int> newMarks) {
+        void Student::setName(string *newName)  {//setters & getters: id should not be able to be reset.
+            Student::name = newName;
+        }
+        void Student::setMarks(vector<int> newMarks) {
             marks = newMarks;
         }
-        string getName() const {
+        string* Student::getName() const {
             return name;
         }
-        vector<int> getMarks() const {
+        vector<int> Student::getMarks() const {
             return marks;
         }
-        int getId() const {
+        int Student::getId() const {
             return id;
         }
-    private:
-        int id;
 
-    };
+
+
+
 }
