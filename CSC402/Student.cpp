@@ -10,48 +10,58 @@ Student::Student(int i, string n, vector<int> m) {
     id = i;
     name = n;
     marks = m;
+    littleLog("Making a Student.\n");
 }
 //destructor
 Student::~Student() {
-
+    littleLog("Deleting a Student.\n");
 }
 //copy constructor
 Student::Student (const Student & rhs) {
     name = rhs.name;
     marks = rhs.marks;
+    littleLog("Copying a Student.\n");
 }
 //operator= override
 const Student& Student::operator=(const Student & rhs) {
-    if (id != rhs.getId()) {
+    if (this != &rhs) {
         id = rhs.getId();
         name = rhs.name;
         marks = rhs.marks;
+        littleLog("Returning equal Student.\n");
     }
     return *this;
 }
 
-int Student::calculateGrade() const{
+int Student::calculateGrade() const {
     int total=0;
     int grade;
     for (int i = 0; i < marks.size(); i++) {
         total += marks.at(i);
     }
     grade = total/marks.size();
+    ostringstream ss;
+    ss << grade;
+    string gradeStr = ss.str();
+    littleLog("Returning an int average grade: " + gradeStr + "\n");
     return grade;
 }
-string Student::calculateLetterGrade(const int grade) const{
-    if (grade < 60) {return "F";}
-    else if (grade <= 67) {return "D";}
-    else if (grade <= 70) {return "D+";}
-    else if (grade <= 73) {return "C-";}
-    else if (grade <= 77) {return "C";}
-    else if (grade <= 80) {return "C+";}
-    else if (grade <= 83) {return "B-";}
-    else if (grade <= 87) {return "B";}
-    else if (grade <= 90) {return "B+";}
-    else if (grade <= 93) {return "A-";}
-    else if (grade <= 97) {return "A";}
-    else return "A+";
+string Student::calculateLetterGrade(const int grade) const {
+    string letGrade;
+    if (grade < 60) {letGrade = "F";}
+    else if (grade <= 67) {letGrade = "D";}
+    else if (grade <= 70) {letGrade = "D+";}
+    else if (grade <= 73) {letGrade = "C-";}
+    else if (grade <= 77) {letGrade = "C";}
+    else if (grade <= 80) {letGrade = "C+";}
+    else if (grade <= 83) {letGrade = "B-";}
+    else if (grade <= 87) {letGrade = "B";}
+    else if (grade <= 90) {letGrade = "B+";}
+    else if (grade <= 93) {letGrade = "A-";}
+    else if (grade <= 97) {letGrade = "A";}
+    else letGrade = "A+";
+    littleLog("Returning string letter grade: " + letGrade + "\n");
+    return letGrade;
 }
 //setters & getters: id should not be able to be reset.
 void Student::setName(string newName)  {
@@ -69,7 +79,11 @@ vector<int> Student::getMarks() const {
 int Student::getId() const {
     return id;
 }
-void Student::logStudent(const Student studentOut) {
+void Student::littleLog(string const out) const {
+    Logger *log = &log->getInstance();
+    log->log(out);
+}
+void Student::logStudent(const Student &studentOut) {
     //create the logger pointer
     Logger *studentLogger;
     //get the instance
@@ -78,9 +92,8 @@ void Student::logStudent(const Student studentOut) {
     int grade = studentOut.calculateGrade();
     string letGrade = studentOut.calculateLetterGrade(grade);
     string name = studentOut.getName();
+
     //using stringstream to change ints to strings
-
-
     ostringstream ss1;
     ss1 << id;
     string idStr = ss1.str();

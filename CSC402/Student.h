@@ -31,10 +31,11 @@ public:
     vector<int> getMarks() const;
     int getId() const ;
     //logger method
-    void logStudent(const Student studentOut);
+    void logStudent(const Student & studentOut);
 private:
     int id;
 
+    void littleLog(const string out)const;
 };
 
 
